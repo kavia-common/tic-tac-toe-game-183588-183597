@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base href="/" />
+    <meta charset="UTF-8" />
+    <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
+    <meta name="description" content="Tic Tac Toe - Ocean Professional Theme" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="apple-mobile-web-app-title" content="Tic Tac Toe" />
+    <meta name="application-name" content="Tic Tac Toe" />
+    <meta name="theme-color" content="#2563EB" />
+
+    <link rel="apple-touch-icon" href="icons/Icon-192.png" />
+    <link rel="icon" type="image/png" href="icons/Icon-192.png" />
+    <link rel="manifest" href="manifest.json" />
+
+    <title>Tic Tac Toe</title>
+    <script>
+      // Flutter web loader config can be customized here if needed.
+      const serviceWorkerVersion = null;
+    </script>
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+        background: #f9fafb;
+        margin: 0;
+        padding: 0;
+      }
+      #loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        color: #2563EB;
+        font-family: sans-serif;
+      }
+    </style>
+  </head>
+  <body>
+    <noscript>
+      <p>This application requires JavaScript to run.</p>
+    </noscript>
+    <div id="loading">Loading Tic Tac Toe…</div>
+    <script src="flutter.js" defer></script>
+    <script>
+      window.addEventListener('load', function(ev) {
+        _flutter.loader.loadEntrypoint({
+          serviceWorker: {
+            serviceWorkerVersion: serviceWorkerVersion,
+          }
+        }).then(function(engineInitializer) {
+          return engineInitializer.initializeEngine();
+        }).then(function(appRunner) {
+          document.getElementById('loading')?.remove();
+          return appRunner.runApp();
+        });
+      });
+    </script>
+  </body>
+</html>
