@@ -3,16 +3,32 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:tic_tac_toe_frontend/main.dart';
 
 void main() {
-  testWidgets('App generation message displayed', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('App displays Tic Tac Toe layout', (WidgetTester tester) async {
+    await tester.pumpWidget(const TicTacToeApp());
 
-    expect(find.text('tic_tac_toe_frontend App is being generated...'), findsOneWidget);
-    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+    // App bar title
+    expect(find.text('Tic Tac Toe'), findsOneWidget);
+
+    // Reset button exists
+    expect(find.byIcon(Icons.restart_alt), findsOneWidget);
+
+    // There should be 9 grid cells (InkWell inside our custom cell)
+    // We can look for 9 AnimatedContainer as a proxy (each cell uses one)
+    expect(find.byType(AnimatedContainer), findsNWidgets(9));
   });
 
-  testWidgets('App bar has correct title', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+  testWidgets('Tapping a cell places X then O alternately', (WidgetTester tester) async {
+    await tester.pumpWidget(const TicTacToeApp());
 
-    expect(find.text('tic_tac_toe_frontend'), findsOneWidget);
+    // Tap first cell -> X
+    await tester.tap(find.byType(AnimatedContainer).first);
+    await tester.pumpAndSettle();
+    expect(find.text('X'), findsOneWidget);
+
+    // Tap second cell -> O
+    final allCells = find.byType(AnimatedContainer);
+    await tester.tap(allCells.at(1));
+    await tester.pumpAndSettle();
+    expect(find.text('O'), findsOneWidget);
   });
 }
